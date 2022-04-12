@@ -1,6 +1,8 @@
 import csv 
 from datetime import *
 
+customer_list = []
+
 class Customer: 
 	FirstName = ""
 	LastName = ""
@@ -41,5 +43,31 @@ def load_list(list): # creates a list of Customer objects
 				pass 
 			customer_list.append(Customer(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9])) # add to the list
 
-customer_list = []
+def print_date():
+	date1 = customer_list[0].LastCheckInDate # store the first date
+	d, m, y = date1.split("/")
+	min_date = date(int(y), int(m), int(d)) # date in format "datetime"
+	max_date = min_date
+	pos1 = pos2 = 0 # index for saving the customer's position
+
+	for i in range(1, len(customer_list)):
+		if(customer_list[i].LastCheckInDate == ""):
+			continue
+		date2 = customer_list[i].LastCheckInDate
+		d2, m2, y2 = date2.split("/")
+		date3 = date(int(y2), int(m2), int(d2)) # casting for int
+		if date3 < min_date:
+			min_date = date3
+			pos1 = i
+		if date3 > max_date:
+			max_date = date3
+			pos2 = i
+
+	print("The customer with the oldest Last Check-in Date is: ", customer_list[pos1].FirstName, customer_list[pos1].LastName)
+	print("The customer with the newest Last Check-in Date is: ", customer_list[pos2].FirstName, customer_list[pos2].LastName)
+
+
+
 load_list(customer_list) # now we can manipulate the fields of the csv as objects of the class
+print("\n..................................................................\n")
+print_date()
