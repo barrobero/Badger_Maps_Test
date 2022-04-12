@@ -66,8 +66,24 @@ def print_date():
 	print("The customer with the oldest Last Check-in Date is: ", customer_list[pos1].FirstName, customer_list[pos1].LastName)
 	print("The customer with the newest Last Check-in Date is: ", customer_list[pos2].FirstName, customer_list[pos2].LastName)
 
+def sort_customers(): # returns the ordered list
+	fn_list = []
+	full_name = ""
+
+	for i in range(len(customer_list)):
+		if(customer_list[i].FirstName == "" or customer_list[i].LastName == ""):
+			print("Not enough data...")
+			continue
+
+		full_name = customer_list[i].FirstName + " " + customer_list[i].LastName
+		fn_list.append(full_name) # add the customer's full name to the list
+	fn_list.sort()
+
+	return fn_list
 
 
 load_list(customer_list) # now we can manipulate the fields of the csv as objects of the class
 print("\n..................................................................\n")
 print_date()
+ordered_list = sort_customers()
+print(ordered_list)
